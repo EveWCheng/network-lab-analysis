@@ -1,0 +1,14 @@
+[dir_names]
+    raw_data_dir = "../data/data_year_party"
+    sim_dir = "../simulation"
+    class_dict_dir = "../data/class_dict_year_party"
+    mp_dict_dir = "../data/mp_dict_year_party"
+    incimat_dir = "../data/incidence_matrices"
+
+[csv_attributes]
+    headers = ["phid", "Name", "Party","Sex","Uni","Subject","PrinOcc","Military","mpFrom","mpTo","year"]
+    id_ = "phid"
+    attributes = ["Uni","Subject","PrinOcc","Military"]
+
+[run]
+    sim_real = "real"

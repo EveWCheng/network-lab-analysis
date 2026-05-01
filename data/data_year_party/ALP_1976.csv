@@ -1,0 +1,37 @@
+phid,Name,Party,Sex,Uni,Subject,PrinOcc,Military,mpFrom,mpTo,year
+phid/1V4,jim cairns,ALP,male,Mel,economics,university_professor,Military,1969-10-25,1977-11-10,1976
+phid/2V4,clyde cameron,ALP,male,NA,NA,trade_unionist,NA,1949-12-10,1980-09-19,1976
+phid/5J4,gordon scholes,ALP,male,NA,NA,employed_blue-collar_worker,NA,1967-07-22,1993-02-08,1976
+phid/6U4,gough whitlam,ALP,male,Syd,humanities_law,employed_professional,Military,1952-11-29,1978-07-31,1976
+phid/AV4,chris hurford,ALP,male,LSE,economics,employed_professional,NA,1969-10-25,1987-12-31,1976
+phid/CV4,ralph jacobi,ALP,male,NA,NA,trade_unionist,NA,1969-10-25,1987-06-05,1976
+phid/DRW,harry jenkins sr,ALP,male,Mel,biol_chem_phys,employed_professional,NA,1969-10-25,1985-12-20,1976
+phid/EE4,tom uren,ALP,male,NA,NA,self-employed_small_businessman,Military,1958-11-22,1990-02-19,1976
+phid/EV4,mick young,ALP,male,NA,NA,trade_unionist,NA,1974-05-18,1988-02-08,1976
+phid/HI4,peter morris,ALP,male,NA,NA,full-time_politician,NA,1972-12-02,1998-08-31,1976
+phid/JAG,frank crean,ALP,male,Mel,humanities,employed_professional,NA,1951-04-28,1977-11-10,1976
+phid/JF7,kim edward beazley,ALP,male,UWA,humanities,university_professor,NA,1945-08-18,1977-11-10,1976
+phid/JM9,john armitage,ALP,male,NA,NA,employed_other_white-collar_worker,Military,1969-10-25,1983-02-04,1976
+phid/JNG,moss cass,ALP,male,Syd,medicine,employed_professional,NA,1969-10-25,1983-02-04,1976
+phid/JSU,gordon bryant,ALP,male,Mel,humanities,school_teacher,Military,1955-12-10,1980-09-19,1976
+phid/JXQ,ken fry,ALP,male,ANU,humanities,self-employed_farmer_fisherman,Military,1974-05-18,1984-10-26,1976
+phid/K0O,rex connor,ALP,male,NA,NA,self-employed_farmer_fisherman,Military,1963-11-30,1977-08-22,1976
+phid/K4U,martin nicholls,ALP,male,NA,NA,trade_unionist,Military,1963-11-30,1977-09-30,1976
+phid/K9J,keith johnson,ALP,male,NA,NA,trade_unionist,NA,1969-10-25,1980-09-19,1976
+phid/K9M,les johnson,ALP,male,NA,NA,trade_unionist,NA,1969-10-25,1983-12-19,1976
+phid/KDV,charles jones,ALP,male,NA,NA,trade_unionist,NA,1958-11-22,1983-02-04,1976
+phid/KFB,john fitzpatrick,ALP,male,NA,NA,trade_unionist,Military,1969-10-25,1977-12-10,1976
+phid/KJA,ted innes,ALP,male,RMIT,humanities,trade_unionist,NA,1972-12-02,1983-02-04,1976
+phid/KJO,bert james,ALP,male,NA,NA,employed_blue-collar_worker,NA,1960-04-09,1980-09-19,1976
+phid/KN9,vince martin,ALP,male,NA,NA,employed_professional,NA,1969-10-25,1980-09-19,1976
+phid/KSF,les mcmahon,ALP,male,NA,NA,trade_unionist,NA,1975-12-13,1983-02-04,1976
+phid/KUX,frank stewart,ALP,male,NA,NA,other,Military,1953-08-29,1977-12-10,1976
+phid/KWZ,laurie wallis,ALP,male,NA,NA,trade_unionist,NA,1969-10-25,1983-02-04,1976
+phid/KZY,tony whitlam,ALP,male,ANU,law,employed_professional,NA,1975-12-13,1977-11-10,1976
+phid/L6X,horrie garrick,ALP,male,NA,NA,employed_blue-collar_worker,NA,1969-10-25,1977-11-10,1976
+phid/NF4,barry cohen,ALP,male,ANU,humanities,employed_top_management,Military,1969-10-25,1990-02-19,1976
+phid/NH4,paul keating,ALP,male,NSW,humanities,trade_unionist,NA,1969-10-25,1996-04-23,1976
+phid/RK4,bill hayden,ALP,male,Qld,economics,full-time_politician,NA,1961-12-09,1988-08-17,1976
+phid/SH4,richard klugman,ALP,male,Syd,biol_chem_phys,employed_professional,NA,1969-10-25,1990-02-19,1976
+phid/ZE4,lionel bowen,ALP,male,Syd,law,employed_professional,Military,1969-10-25,1990-02-19,1976
+phid/ZJ4,ralph willis,ALP,male,Mel,economics,trade_unionist,NA,1972-12-02,1998-08-31,1976

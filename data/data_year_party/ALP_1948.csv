@@ -1,0 +1,44 @@
+phid,Name,Party,Sex,Uni,Subject,PrinOcc,Military,mpFrom,mpTo,year
+phid/6V4,fred daly,ALP,male,NA,NA,trade_unionist,NA,1943-08-21,1949-12-10,1948
+phid/A48,ben chifley,ALP,male,NA,NA,trade_unionist,NA,1940-09-21,1951-06-13,1948
+phid/BV8,arthur calwell,ALP,male,NA,NA,trade_unionist,NA,1940-09-21,1972-11-02,1948
+phid/DTN,h.v. evatt,ALP,male,Syd,humanities_law,employed_professional,NA,1940-09-21,1958-11-22,1948
+phid/F4Q,james scullin,ALP,male,NA,NA,self-employed_small_businessman,NA,1922-02-18,1949-10-31,1948
+phid/JF7,kim edward beazley,ALP,male,UWA,humanities,university_professor,NA,1945-08-18,1977-11-10,1948
+phid/JNX,claude barnard,ALP,male,NA,NA,trade_unionist,NA,1934-09-15,1949-12-10,1948
+phid/JSC,frank brennan,ALP,male,Mel,law,employed_professional,NA,1934-09-15,1949-10-31,1948
+phid/JTF,tom burke,ALP,male,NA,NA,employed_middle_management,Military,1943-08-21,1955-12-10,1948
+phid/JUQ,joe clark,ALP,male,NA,NA,self-employed_small_businessman,NA,1934-09-15,1969-09-29,1948
+phid/JVJ,dan mulcahy,ALP,male,NA,NA,self-employed_small_businessman,NA,1934-09-15,1953-07-13,1948
+phid/JWR,cyril chambers,ALP,male,NA,NA,employed_professional,Military,1943-08-21,1958-10-14,1948
+phid/JWU,allan fraser,ALP,male,NA,NA,employed_other_white-collar_worker,NA,1943-08-21,1966-11-26,1948
+phid/JYV,arthur fuller,ALP,male,NA,NA,self-employed_small_businessman,NA,1943-08-21,1949-12-10,1948
+phid/K0E,john gaha,ALP,male,Oth,medicine,employed_professional,NA,1943-08-21,1949-10-31,1948
+phid/K0K,william conelan,ALP,male,NA,NA,self-employed_small_businessman,NA,1939-05-20,1949-12-10,1948
+phid/K58,william o'connor,ALP,male,NA,NA,trade_unionist,NA,1946-09-28,1949-12-10,1948
+phid/K9G,herbert johnson,ALP,male,NA,NA,trade_unionist,NA,1940-11-16,1958-10-14,1948
+phid/KCF,john dedman,ALP,male,Mel,economics,self-employed_farmer_fisherman,Military,1940-03-02,1949-12-10,1948
+phid/KCM,arthur drakeford,ALP,male,NA,NA,trade_unionist,NA,1934-09-15,1955-12-10,1948
+phid/KDA,gil duthie,ALP,male,Mel,humanities,school_teacher,NA,1946-09-28,1975-12-13,1948
+phid/KDB,bill edmonds,ALP,male,NA,NA,trade_unionist,NA,1946-09-28,1958-11-22,1948
+phid/KEU,max falstein,ALP,male,Syd,humanities_law,employed_professional,NA,1940-09-21,1949-12-10,1948
+phid/KFX,james hadley,ALP,male,NA,NA,trade_unionist,NA,1943-08-21,1949-12-10,1948
+phid/KGX,les haylen,ALP,male,NA,NA,employed_other_white-collar_worker,Military,1943-08-21,1963-11-30,1948
+phid/KHL,jack holloway,ALP,male,NA,NA,trade_unionist,NA,1931-12-19,1951-03-19,1948
+phid/KJQ,rowley james,ALP,male,NA,NA,trade_unionist,NA,1928-11-17,1958-10-14,1948
+phid/KQB,william scully,ALP,male,NA,NA,self-employed_farmer_fisherman,NA,1937-05-08,1949-12-10,1948
+phid/KRE,tom sheehan,ALP,male,NA,NA,trade_unionist,NA,1937-10-23,1955-03-26,1948
+phid/KRI,thomas sheehy,ALP,male,NA,NA,employed_top_management,NA,1943-08-21,1949-12-10,1948
+phid/KSD,don mcleod,ALP,male,NA,NA,self-employed_farmer_fisherman,Military,1940-09-21,1949-12-10,1948
+phid/KVT,albert thompson,ALP,male,NA,NA,self-employed_farmer_fisherman,NA,1946-09-28,1949-12-10,1948
+phid/KX7,eddie ward,ALP,male,NA,NA,trade_unionist,NA,1932-02-06,1963-07-31,1948
+phid/KXB,david oliver watkins,ALP,male,NA,NA,self-employed_small_businessman,Military,1935-06-01,1958-10-14,1948
+phid/KYC,reg pollard,ALP,male,NA,NA,self-employed_farmer_fisherman,Military,1937-10-23,1949-12-10,1948
+phid/KZ9,bill riordan,ALP,male,NA,NA,full-time_politician,NA,1936-12-12,1966-10-31,1948
+phid/KZN,joe langtry,ALP,male,NA,NA,self-employed_farmer_fisherman,NA,1940-09-21,1949-12-10,1948
+phid/KZX,george lawson,ALP,male,NA,NA,trade_unionist,Military,1931-12-19,1961-11-02,1948
+phid/L07,bert lazzarini,ALP,male,NA,NA,self-employed_small_businessman,NA,1934-09-15,1952-10-01,1948
+phid/L08,sol rosevear,ALP,male,NA,NA,employed_blue-collar_worker,NA,1931-12-19,1953-03-21,1948
+phid/L0F,edgar russell,ALP,male,NA,NA,self-employed_professional,NA,1943-08-21,1963-03-31,1948
+phid/L0X,nelson lemmon,ALP,male,NA,NA,self-employed_farmer_fisherman,NA,1943-08-21,1949-12-10,1948
+phid/L1A,thomas williams,ALP,male,Syd,law,employed_professional,NA,1943-08-21,1949-12-10,1948
