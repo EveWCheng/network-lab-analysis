@@ -2,7 +2,7 @@ import numpy as np
 import itertools
 import networkx as nx
 
-class InciGraph:
+class InciGraph_Statistics:
     def __init__(self, edge_weight_option, InciMat, row_index_to_name=None, col_index_to_name=None):
         self.InciMat = InciMat
         self.edge_weight_option = edge_weight_option
@@ -37,10 +37,7 @@ class InciGraph:
                 i,j = comb[0],comb[1]
                 AdjMat[i,j] += self.FlattenEdgeWeight(r_i)
                 AdjMat[j,i] += self.FlattenEdgeWeight(r_i)
-        self.AdjMat = AdjMat
-        if self.col_index_to_name is None:
-            self.col_index_to_name = {j: j for j in range(col_dim)}
-
+        return AdjMat
 
     #takes incidence matrix of a hypergraph and flatten it in the row direction
     def FlattenHyper_Reverse(self):
@@ -54,9 +51,15 @@ class InciGraph:
                 i,j = comb[0],comb[1]
                 AdjMat[i,j] += self.FlattenEdgeWeight_Reverse(c_i)
                 AdjMat[j,i] += self.FlattenEdgeWeight_Reverse(c_i)
-        self.AdjMatRev = AdjMat
-        if self.row_index_to_name is None:
-            self.row_index_to_name = {i: i for i in range(row_dim)}
+        return AdjMat
+
+    def flatten(self,flatten_dir):
+        if flatten_dir == "col":
+            return self.FlattenHyper()
+        elif flatten_dir == "row":
+            return self.FlattenHyper_Reverse()
+        else:
+            print("Warning: no adj matrix is produced")
 
 
 

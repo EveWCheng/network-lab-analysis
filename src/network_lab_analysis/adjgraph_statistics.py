@@ -23,7 +23,6 @@ class NetworkX_Statistics:
 
     def transitivity(self):
         return nx.transitivity(self.G)
- 
 
 
 #from distance matrix to networkx object
