@@ -5,6 +5,7 @@
     mp_dict_dir = "data/OzMPCareer/mp_dict_year_party"
     incimat_dir = "data/OzMPCareer/incidence_matrices"
     bouquet_dir = "output/bouquets"
+    structural_hole_dir = "output/structural_hole_measures"
 
 [csv_attributes]
     headers = ["phid", "Name", "Party","Sex","Uni","Subject","PrinOcc","Military","mpFrom","mpTo","year"]

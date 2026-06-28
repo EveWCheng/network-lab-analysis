@@ -32,6 +32,11 @@ class SetUp:
         out_dir.mkdir(parents=True, exist_ok=True)
         return out_dir / f"bouquet_{poi}.csv"
 
+    def structural_hole_path(self, filename):
+        out_dir = Path(self.structural_hole_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        return out_dir / filename
+
 
 def read_incidence_matrix(incimat_path):
     return np.loadtxt(incimat_path)
@@ -115,11 +120,25 @@ def _percentile_ranks(values_dict):
     return {k: sum(v <= val for v in values) / len(values) * 100 for k, val in values_dict.items()}
 
 
+def _write_mp_percentiles(poi, setup, result, measure):
+    for year, pcts in result.items():
+        out_dir = Path(setup.structural_hole_dir) / poi / measure
+        out_dir.mkdir(parents=True, exist_ok=True)
+        index_to_mp = read_mp_index(setup.mp_dict_path([poi, str(year)]))
+        with open(out_dir / f"mp_{measure}_{poi}_{year}.csv", 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(["year", "mp_id", "percentile"])
+            for mp_idx, pct in sorted(pcts.items(), key=lambda x: x[1], reverse=True):
+                writer.writerow([year, index_to_mp.get(mp_idx, "unknown"), pct])
+
+
 def mp_effective_size_percentiles(poi, setup, years=np.arange(1947, 2020, dtype=np.int64), graphs=None):
     """Returns {year: {mp_index: percentile_rank}} of effective size within that year's distribution."""
     if graphs is None:
         graphs = build_mp_graphs(poi, setup, years)
-    return {year: _percentile_ranks(nx.effective_size(G)) for year, G in graphs.items()}
+    result = {year: _percentile_ranks(nx.effective_size(G)) for year, G in graphs.items()}
+    _write_mp_percentiles(poi, setup, result, "effective_size")
+    return result
 
 
 def mp_constraint_percentiles(poi, setup, years=np.arange(1947, 2020, dtype=np.int64), graphs=None):
@@ -133,7 +152,9 @@ def mp_betweenness_percentiles(poi, setup, years=np.arange(1947, 2020, dtype=np.
     """Returns {year: {mp_index: percentile_rank}} of betweenness centrality within that year's distribution."""
     if graphs is None:
         graphs = build_mp_graphs(poi, setup, years)
-    return {year: _percentile_ranks(nx.betweenness_centrality(G)) for year, G in graphs.items()}
+    result = {year: _percentile_ranks(nx.betweenness_centrality(G)) for year, G in graphs.items()}
+    _write_mp_percentiles(poi, setup, result, "betweenness")
+    return result
 
 
 def detect_bouquets(poi, setup, threshold=0, measure_threshold=0, min_count=None, years=np.arange(1947, 2020, dtype=np.int64)):
@@ -144,11 +165,11 @@ def detect_bouquets(poi, setup, threshold=0, measure_threshold=0, min_count=None
     where bouquet_measure is the shortest path between i and j excluding the direct i-j edge.
     Writes results to output/bouquets/bouquet_{poi}.csv.
     """
-    out_path = setup.bouquet_output_path(poi)
     graphs = build_mp_graphs(poi, setup, years)
     eff_size_pcts = mp_effective_size_percentiles(poi, setup, graphs=graphs)
     constraint_pcts = mp_constraint_percentiles(poi, setup, graphs=graphs)
     betweenness_pcts = mp_betweenness_percentiles(poi, setup, graphs=graphs)
+    out_path = setup.bouquet_output_path(poi)
     with open(out_path, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["year", "class_1", "class_2", "no_1", "no_2", "mp_id", "no_people", "shortest_path", "n_shortest_paths", "mp_eff_size_pct", "mp_constraint_pct", "mp_betweenness_pct", "class_1_betweenness_pct", "class_2_betweenness_pct"])
