@@ -11,11 +11,16 @@ import networkx as nx
 
 class SetUp:
     def __init__(self):
-        with open(os.path.join(os.path.dirname(__file__), "../config.toml"), "rb") as f:
+        config_path = Path(os.path.abspath(__file__)).parent.parent / "config.toml"
+        with open(config_path, "rb") as f:
             _config = tomllib.load(f)
+        config_dir = config_path.parent
         for section in _config.values():
             for key, value in section.items():
-                setattr(self, key, value)
+                if key.endswith("_dir"):
+                    setattr(self, key, str((config_dir / value).resolve()))
+                else:
+                    setattr(self, key, value)
 
     def real_file_name(self, labels):
         fn = Path(self.raw_data_dir) / f"{'_'.join(labels)}.csv"
@@ -95,6 +100,7 @@ def main():
                 fn = setup.real_file_name(labels)
                 df, no_people = setup.import_data(fn)
                 class_to_index = setup.class_to_index_gen(df, labels)
+                setup.index_to_mp(df, labels)
                 setup.incidence_matrix(class_to_index, no_people, df, labels)
 
 
