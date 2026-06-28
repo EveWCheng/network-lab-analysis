@@ -71,30 +71,33 @@ def find_bridge_node(i, j, hypermat):
     return None
 
 
-def classifier_betweenness_percentiles(adjmat):
-    """Returns {classifier_index: betweenness_percentile} for the classifier co-occurrence graph."""
+def build_classifier_graph(adjmat):
+    """Builds the classifier co-occurrence graph from adjmat."""
     rows, cols = np.where(np.triu(adjmat > 0, k=1))
     G = nx.Graph()
     G.add_nodes_from(range(adjmat.shape[0]))
     G.add_edges_from(zip(rows.tolist(), cols.tolist()))
+    return G
+
+
+def classifier_betweenness_percentiles(G):
+    """Returns {classifier_index: betweenness_percentile} for a pre-built classifier graph."""
     return _percentile_ranks(nx.betweenness_centrality(G))
 
 
-def bouquet_measure(i, j, adjmat):
+def bouquet_measure(i, j, G):
     """
     Returns (shortest_path_length, n_shortest_paths) between classifiers i and j,
     excluding the direct i-j edge. Returns (np.inf, 0) if no alternative path exists.
     """
-    rows, cols = np.where(np.triu(adjmat > 0, k=1))
-    G = nx.Graph()
-    G.add_nodes_from(range(adjmat.shape[0]))
-    G.add_edges_from(zip(rows.tolist(), cols.tolist()))
     G.remove_edge(i, j)
     try:
         paths = list(nx.all_shortest_paths(G, source=i, target=j))
         return len(paths[0]) - 1, len(paths)
     except nx.NetworkXNoPath:
         return np.inf, 0
+    finally:
+        G.add_edge(i, j)
 
 
 def build_mp_graphs(poi, setup, years=np.arange(1947, 2020, dtype=np.int64)):
@@ -120,24 +123,26 @@ def _percentile_ranks(values_dict):
     return {k: sum(v <= val for v in values) / len(values) * 100 for k, val in values_dict.items()}
 
 
-def _write_mp_percentiles(poi, setup, result, measure):
+def _write_mp_percentiles(poi, setup, raw, result, measure):
     for year, pcts in result.items():
         out_dir = Path(setup.structural_hole_dir) / poi / measure
         out_dir.mkdir(parents=True, exist_ok=True)
         index_to_mp = read_mp_index(setup.mp_dict_path([poi, str(year)]))
         with open(out_dir / f"mp_{measure}_{poi}_{year}.csv", 'w', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(["year", "mp_id", "percentile"])
+            writer.writerow(["year", "mp_id", "value", "percentile"])
             for mp_idx, pct in sorted(pcts.items(), key=lambda x: x[1], reverse=True):
-                writer.writerow([year, index_to_mp.get(mp_idx, "unknown"), pct])
+                writer.writerow([year, index_to_mp.get(mp_idx, "unknown"), raw[year][mp_idx], pct])
 
 
-def mp_effective_size_percentiles(poi, setup, years=np.arange(1947, 2020, dtype=np.int64), graphs=None):
+def mp_effective_size_percentiles(poi, setup, years=np.arange(1947, 2020, dtype=np.int64), graphs=None, write=False):
     """Returns {year: {mp_index: percentile_rank}} of effective size within that year's distribution."""
     if graphs is None:
         graphs = build_mp_graphs(poi, setup, years)
-    result = {year: _percentile_ranks(nx.effective_size(G)) for year, G in graphs.items()}
-    _write_mp_percentiles(poi, setup, result, "effective_size")
+    raw = {year: nx.effective_size(G) for year, G in graphs.items()}
+    result = {year: _percentile_ranks(vals) for year, vals in raw.items()}
+    if write:
+        _write_mp_percentiles(poi, setup, raw, result, "effective_size")
     return result
 
 
@@ -148,12 +153,14 @@ def mp_constraint_percentiles(poi, setup, years=np.arange(1947, 2020, dtype=np.i
     return {year: _percentile_ranks(nx.constraint(G)) for year, G in graphs.items()}
 
 
-def mp_betweenness_percentiles(poi, setup, years=np.arange(1947, 2020, dtype=np.int64), graphs=None):
+def mp_betweenness_percentiles(poi, setup, years=np.arange(1947, 2020, dtype=np.int64), graphs=None, write=False):
     """Returns {year: {mp_index: percentile_rank}} of betweenness centrality within that year's distribution."""
     if graphs is None:
         graphs = build_mp_graphs(poi, setup, years)
-    result = {year: _percentile_ranks(nx.betweenness_centrality(G)) for year, G in graphs.items()}
-    _write_mp_percentiles(poi, setup, result, "betweenness")
+    raw = {year: nx.betweenness_centrality(G) for year, G in graphs.items()}
+    result = {year: _percentile_ranks(vals) for year, vals in raw.items()}
+    if write:
+        _write_mp_percentiles(poi, setup, raw, result, "betweenness")
     return result
 
 
@@ -183,13 +190,14 @@ def detect_bouquets(poi, setup, threshold=0, measure_threshold=0, min_count=None
             index_to_class = read_classifier_index(setup.class_dict_path(labels))
             index_to_mp = read_mp_index(setup.mp_dict_path(labels))
             adjmat = flatten_hyper(hypermat)
-            class_btwn = classifier_betweenness_percentiles(adjmat)
+            G_class = build_classifier_graph(adjmat)
+            class_btwn = classifier_betweenness_percentiles(G_class)
             indices = np.argwhere(adjmat == 1)
             for i, j in indices:
                 no_1, no_2 = int(adjmat[i, i]), int(adjmat[j, j])
                 size_ok = no_2 > min_count if min_count is not None else no_2 > threshold * no_people
                 if no_1 > no_2 and size_ok:
-                    shortest_path, n_shortest = bouquet_measure(i, j, adjmat)
+                    shortest_path, n_shortest = bouquet_measure(i, j, G_class)
                     if shortest_path > measure_threshold and n_shortest < 2:
                         bridge = find_bridge_node(i, j, hypermat)
                         mp_id = index_to_mp.get(bridge, "unknown") if bridge is not None else "unknown"
@@ -202,8 +210,12 @@ def detect_bouquets(poi, setup, threshold=0, measure_threshold=0, min_count=None
 
 def main():
     setup = SetUp()
+    years = np.arange(1947, 2020, dtype=np.int64)
     for poi in ["LP", "ALP"]:
-        detect_bouquets(poi, setup, threshold=0.05, measure_threshold=1)
+        detect_bouquets(poi, setup, threshold=0.05, measure_threshold=1, years=years)
+        graphs = build_mp_graphs(poi, setup, years)
+        mp_effective_size_percentiles(poi, setup, graphs=graphs, write=True)
+        mp_betweenness_percentiles(poi, setup, graphs=graphs, write=True)
 
 
 main()
